@@ -2,7 +2,98 @@
 
 Caja file manager is preinstalled on MATE DE. It may be called from terminal as `caja`.
 
-## Extra pane in Caja
+## File menu
+
+### Open new tab in Caja
+
+Steps to test:
+
+1. Open Caja
+1. Click on *File* → *New tab* (or use `<Ctrl>+<T>`)
+1. Close newly opened tab
+
+Expected result:
+
+* Caja opened new tab, user is able to close it.
+
+### Open new window for Caja
+
+Steps to test:
+
+1. Open Caja
+1. Click on *File* → *New window* (or use `<Ctrl>+<N>`)
+1. Close newly opened Caja window
+
+Expected result:
+
+* Caja opened new window, user is able to close it.
+
+### Create new Folder
+
+Steps to test:
+
+1. Open Caja
+1. Click on *File* → *Create folder* (or use `<Shift>+<Ctrl>+<N>`)
+1. Delete newly created folder
+
+Expected result:
+
+* Caja created new folder, user is able to delete it.
+
+### Create new Document
+
+Steps to test:
+
+1. Open Caja
+1. Click on *File* → *Create Document*, *Empty File*
+1. Delete newly created document
+
+Expected result:
+
+* Caja created new document, user is able to delete it.
+
+#### Create template for new Document and use it
+
+Steps to test:
+
+1. Open LibreOffice Writer and save document to `~/Templates` folder with name `odt-document.odt`
+1. Open Caja
+1. Click on *File* → *Create Document*, *odt-document* (with LibreOffice Writer icon)
+1. Delete newly created document
+
+Expected result:
+
+* Caja created new ODT-document using template, user is able to delete it.
+
+### Connect to Server
+
+Steps to test:
+
+1. Open Caja
+1. Select *File* → *Connect to Server* or launch `caja-connect-server`
+1. Enter all needed server details: server hostname or IP, port, type - *Apple Filing Protocol (AFP)*, *SSH*, *FTP (with login)*, *Public FTP*, *Windows share*, *WebDAV (HTTP)*, *Secure WebDAV (HTTPS)*
+1. Click *Connect*
+
+Expected results:
+
+* with correct server details Caja will open new window with network filesystem.
+
+### Viewing item Properties
+
+Steps to test:
+
+1. Open Caja
+1. Navigate to the `/` folder
+1. Select `boot` folder
+1. Click on *File* → *Properties* or use `<Alt>+<Return>`
+
+Expected results:
+
+* Caja shows the properties for selected folder.
+
+## View menu
+
+### Extra pane in Caja
 
 Steps to test:
 
@@ -11,11 +102,11 @@ Steps to test:
 
 Expected results:
 
-   * Caja opened extra pane in the right of already opened pane.
+* Caja opened extra pane in the right of already opened pane.
 
 Press `<F3>` again to close the extra pane.
 
-## Side pane in Caja
+### Side pane in Caja
 
 Steps to test:
 
@@ -28,6 +119,24 @@ Expected results:
 
 Press `<F9>` again to show side pane if it is hidden.
 
+## Edit menu
+
+### Send file to removable media
+
+Caja allows to send items to the other location using special `caja-sendto` application.
+
+Steps to test:
+
+1. Connect USB-flash to the system
+1. Open Caja
+1. Select some file, click *Edit* → *Send to*
+1. In the *Send To* window set *Send as* to *Removable disks and shares* and in *Send to* select location of USB-flash, click *Send*
+1. Open USB-flash in the Caja and ensure that file was copied here
+
+Expected result:
+
+* Caja is able to send items to USB-flash.
+
 ## Folder backgrounds and emblems
 
 Steps to test:
@@ -35,7 +144,9 @@ Steps to test:
 1. Open Caja
 1. Select *Edit* → *Backgrounds and Emblems*
 
-TBW (see [ this AskUbuntu Q&A](https://askubuntu.com/a/1157888/66509))
+TBW (see [this AskUbuntu Q&A](https://askubuntu.com/a/1157888/66509))
+
+---
 
 ## Create archive
 
@@ -69,21 +180,7 @@ Expected results:
 
 * archive is created. Caja is able to open it with Engrampa using specified password.
 
-
 ## Network connections and removable drives
-
-### Connect to Server
-
-Steps to test:
-
-1. Open Caja
-1. Select *File* → *Connect to Server* or launch `caja-connect-server`
-1. Enter all needed server details: server hostname or IP, port, type - *Apple Filing Protocol (AFP)*, *SSH*, *FTP (with login)*, *Public FTP*, *Windows share*, *WebDAV (HTTP)*, *Secure WebDAV (HTTPS)*
-1. Click *Connect*
-
-Expected results:
-
-* with correct server details Caja will open new window with network filesystem.
 
 ### Connect to Server from Location bar
 
@@ -148,10 +245,10 @@ Steps to test:
 
        cat <<EOF > ~/.config/caja/scripts/Open-Terminal-Here
        #!/bin/bash
-       
+
        # Created by oss-lvr (https://github.com/oss-lvr)
        # Open a terminal from anywhere
-       
+
        mate-terminal $CAJA_SCRIPT_CURRENT_URI
        EOF
 
@@ -173,64 +270,124 @@ sudo apt install $(apt-cache search caja | awk '{print $1}')
 
 restart Caja with `caja -q` and then go to *Edit* → *Preferences* (or run `caja-file-management-properties`), switch to *Extensions* and compare their list with the table below:
 
-| Available Extensions       | 16.04 LTS | 18.04 LTS |  19.10 |
-|----------------------------|-----------|-----------|--------|
-| libgtkhash-properties-caja |    n/a    |     +     |    +   |
-| libcaja-seahorse           |    n/a    |     +     |    +   |
-| Image Converter            |     +     |     +     |    +   |
-| Share                      |     +     |     +     |    +   |
-| User Share                 |    n/a    |    n/a    |    +   |
-| Open terminal              |     +     |     +     |    +   |
-| libcaja-actions-tracker    |     +     |     +     |    +   |
-| libcaja-actions-menu       |     +     |     +     |    +   |
-| Wallpaper                  |     +     |     +     |    +   |
-| Python: caja-thg           |   manual  |     +     |   n/a  |
-| Python: caja-admin         |    n/a    |     +     |    +   |
-| Python: folder-color       |    n/a    |     +     |    +   |
-| Python: deja (or *dejadup*)|    n/a    |     +     |    +   |
-| Python: syncstate-ownCloud |    n/a    |     +     |    +   |
-| Python: syncstate-Nextcloud|    n/a    |    n/a    |    +   |
-| Python: caja-rename        |    n/a    |     +     |    +   |
-| Python: caja-mediainfo-tab |    n/a    |    n/a    |    +   |
-| Python: insync-caja-plugin |    n/a    |    n/a    |    +   |
-| libeiciel-caja             |    n/a    |     +     |    +   |
-| xattr Tags                 |    n/a    |     +     |    +   |
-| Atril properties           |    n/a    |     +     |    +   |
-| Gksu                       |     +     |    n/a    |   n/a  |
-| Engrampa                   |     +     |     +     |    +   |
-| Caja Dropbox               |     +     |     +     |    +   |
-| Send To                    |     +     |     +     |    +   |
-| libfma-caja-tracker        |    n/a    |    n/a    |    +   |
-| libfma-caja-menu           |    n/a    |    n/a    |    +   |
+| Available Extensions        | 16.04 LTS | 18.04 LTS | 19.10 | 20.04 LTS |
+| --------------------------- | --------- | --------- | ----- | --------- |
+| libgtkhash-properties-caja  | n/a       | +         | +     | +         |
+| libcaja-seahorse            | n/a       | +         | +     | +         |
+| Image Converter             | +         | +         | +     | +         |
+| Share                       | +         | +         | +     | +         |
+| User Share                  | n/a       | n/a       | +     | n/a       |
+| Open terminal               | +         | +         | +     | +         |
+| libcaja-actions-tracker     | +         | +         | +     | +         |
+| libcaja-actions-menu        | +         | +         | +     | +         |
+| Wallpaper                   | +         | +         | +     | +         |
+| Python: caja-thg            | manual    | +         | n/a   | n/a       |
+| Python: caja-admin          | n/a       | +         | +     | +         |
+| Python: folder-color        | n/a       | +         | +     | +         |
+| Python: deja (or *dejadup*) | n/a       | +         | +     | +         |
+| Python: syncstate-ownCloud  | n/a       | +         | +     | +         |
+| Python: syncstate-Nextcloud | n/a       | n/a       | +     | +         |
+| Python: caja-rename         | n/a       | +         | +     | +         |
+| Python: caja-mediainfo-tab  | n/a       | n/a       | +     | +         |
+| Python: insync-caja-plugin  | n/a       | n/a       | +     | n/a       |
+| libeiciel-caja              | n/a       | +         | +     | +         |
+| xattr Tags                  | n/a       | +         | +     | +         |
+| Atril properties            | n/a       | +         | +     | +         |
+| Gksu                        | +         | n/a       | n/a   | n/a       |
+| Engrampa                    | +         | +         | +     | +         |
+| Caja Dropbox                | +         | +         | +     | +         |
+| Send To                     | +         | +         | +     | +         |
+| libfma-caja-tracker         | n/a       | n/a       | +     | +         |
+| libfma-caja-menu            | n/a       | n/a       | +     | +         |
 
 Also check the Caja window for the interface elements from the table:
 
-| Package name         | Interface items                                  | 16.04 LTS | 18.04 LTS | 19.10 |
-|----------------------|--------------------------------------------------|-----------|-----------|-------|
-| caja-actions         | *Caja-Actions Actions* [^1]                      |     +     |     +     |  +    |
-| caja-admin           | *Open as Administrator*, *Edit as Administrator* |     +     |     +     |  +    |
-| caja-eiciel          | *Properties* → *Access Control Lists*            |    n/a    |     +     |  +    |
-| caja-extension-fma   | *FileManager-Actions Actions* [^2]               |    n/a    |    n/a    |  +    |
-| caja-gtkhash         | *Properties* → *Digests*                         |    n/a    |     +     |  +    |
-| caja-image-converter | *Resize Images*, *Rotate Images*                 |     +     |     +     |  +    |
-| caja-mediainfo       | special mediainfo tab                            |    n/a    |    n/a    |  ?    |
-| caja-nextcloud       | ???                                              |    n/a    |    n/a    |  ?    |
-| caja-open-terminal   | *Open in Terminal*                               |     +     |     +     |  +    |
-| caja-owncloud        | ???                                              |    n/a    |     ?     |  ?    |
-| caja-rename          | *Rename*                                         |    n/a    |     +     |  +    |
-| caja-seahorse        | *Encrypt*, *Sign*                                |    n/a    |     +     |  +    |
-| caja-sendto          | *Send to*                                        |     +     |     +     |  +    |
-| caja-share           | *Sharing Options*, *Properties* → *Share*        |     +     |     +     |  +    |
-| caja-wallpaper       | *Set as wallpaper*                               |     +     |     +     |  +    |
-| caja-xattr-tags      | *Tags* column                                    |    n/a    |     +     |  +    |
-| deja-dup-caja        | *Revert to Previous version*,*Restore Missing...*|     +     |     +     |  +    |
-| folder-color-caja    | *Folder's Color*, *File's Emblem*                |     +     |     +     |  +    |
-| nitroshare-caja      | ???                                              |    n/a    |     ?     |  ?    |
-| caja-dropbox         | Dropbox folder and Dropbox menu                  |    n/a    |     +     |  +    |
+| Package name         | Interface items                                   | 16.04 LTS | 18.04 LTS | 19.10 | 20.04 LTS |
+| -------------------- | ------------------------------------------------- | --------- | --------- | ----- | --------- |
+| caja-actions         | *Caja-Actions Actions* [^1]                       | +         | +         | +     | +         |
+| caja-admin           | *Open as Administrator*, *Edit as Administrator*  | +         | +         | +     | +         |
+| caja-eiciel          | *Properties* → *Access Control Lists*             | n/a       | +         | +     | +         |
+| caja-extension-fma   | *FileManager-Actions Actions* [^2]                | n/a       | n/a       | +     | +         |
+| caja-gtkhash         | *Properties* → *Digests*                          | n/a       | +         | +     | +         |
+| caja-image-converter | *Resize Images*, *Rotate Images*                  | +         | +         | +     | +         |
+| caja-mediainfo       | special mediainfo tab                             | n/a       | n/a       | ?     | +         |
+| caja-nextcloud       | ???                                               | n/a       | n/a       | ?     | ?         |
+| caja-open-terminal   | *Open in Terminal*                                | +         | +         | +     | +         |
+| caja-owncloud        | ???                                               | n/a       | ?         | ?     | ?         |
+| caja-rename          | *Rename*                                          | n/a       | +         | +     | +         |
+| caja-seahorse        | *Encrypt*, *Sign*                                 | n/a       | +         | +     | +         |
+| caja-sendto          | *Send to*                                         | +         | +         | +     | +         |
+| caja-share           | *Sharing Options*, *Properties* → *Share*         | +         | +         | +     | +         |
+| caja-wallpaper       | *Set as wallpaper*                                | +         | +         | +     | +         |
+| caja-xattr-tags      | *Tags* column                                     | n/a       | +         | +     | +         |
+| deja-dup-caja        | *Revert to Previous version*,*Restore Missing...* | +         | +         | +     | +         |
+| folder-color-caja    | *Folder's Color*, *File's Emblem*                 | +         | +         | +     | +         |
+| nitroshare-caja      | ???                                               | n/a       | ?         | ?     | ?         |
+| caja-dropbox         | Dropbox folder and Dropbox menu                   | n/a       | +         | +     | +         |
 
 [^1]: to get Caja Actions submenu we need to create custom action from `caja-actions-config-tool` - press *File* → *New action*, go to *Command* tab and the following into *Path* - `zenity --info --text=%b` and then click *File* → *Save*. Then close Caja with `caja -q` and open it again, select some item and make right click on it, then select *Caja-Actions Actions actions* → *New Caja Action*. This will end with showing Information window with the text indicating current item name.
 
 [^2]: to get FileManager Actions submenu we need to create custom action from `fma-config-tool` - press *File* → *New action*, go to *Command* tab and the following into *Path* - `zenity --info --text=%b` and then click *File* → *Save*. Then close Caja with `caja -q` and open it again, select some item and make right click on it, then select *FileManager-Actions actions* → *New Caja Action*. This will end with showing Information window with the text indicating current item name.
+
+### Using SeaHorse in Caja
+
+Caja has functionality to sign, encrypt and decrypt objects. This is done by using `mate-seahorse-tool` under the hood. The `caja-seahorse` package should be installed and `libcaja-seahorse` extenstion should be enabled in the Caja settings too. 
+
+To test signing, encryption and decryption one needs to create new PGP key using SeaHorse:
+
+1. Open Passwords and Keys (or `seahorse`)
+1. Click "+" to add new key and specify its type as *GPG key*
+1. Provide details in the opened window - at least *Full Name*, *Email Address*
+1. Click *Create*
+1. In the opened window named *Passphrase for New PGP Key* provide new password twice
+1. Click *OK*
+
+#### Test PGP signing
+
+Steps to test:
+
+1. Open Caja
+1. Select file (for example `file`)
+1. Click *Edit* → *Sign*
+1. In the opened window named *Choose Signer* specify signer and press OK, provide password
+1. Double-click on the file named `file.sig`
+
+Expected results:
+
+* File was signed successfully, the `file.sig` file was created, double-click on it show notification with text like 
+
+  > file: Good Signature  
+  > Signed by User <usermail> on 2020-01-01
+
+#### Test PGP encryption
+
+Steps to test:
+
+1. Open Caja
+1. Select file (for example `file`)
+1. Click *Edit* → *Encrypt...*
+1. In the opened window named *Encryption setting* select recipient, choose *Sign message as* and click OK
+
+Expected results:
+
+* File was encrypted successfully, the `file.pgp` file was created.
+
+#### Test PGP decryption
+
+Steps to test:
+
+1. Open Caja
+1. Double-click the `file.pgp` file
+1. Choose destination and filename for decrypted file and click *Save*
+
+Expected results:
+
+* User was prompted for password, the notification with text like 
+
+  > file: Good Signature  
+  > Signed by User <usermail> on 2020-01-01
+
+  and then decrypted file appeared in the selected destination with given filename.
 
 ### Detecting text file conflicts
 
@@ -246,7 +403,6 @@ Steps to test:
 Expected results:
 
 * The *File conflict* window is shown, it asks user to view differences. Pressing *Differences* will lead to Meld open for file comparison.
-
 
 ### Installing third-party extensions
 
@@ -274,7 +430,43 @@ Installation:
       sudo apt-get install tortoisehg mercurial
 
 * on 18.04 LTS and 19.04 you can use `sudo apt-get install tortoisehg-caja`;
-* on 19.10 it is not installable.
+
+* on 19.10 it may be installed from [19.04 packages](https://packages.ubuntu.com/source/disco/tortoisehg) manually:
+
+      # 1. Get packages from 19.04 repository
+      cd ~/Downloads
+      wget http://archive.ubuntu.com/ubuntu/pool/universe/t/tortoisehg/tortoisehg_4.8.1-0.1_all.deb
+      wget http://archive.ubuntu.com/ubuntu/pool/universe/t/tortoisehg/tortoisehg-caja_4.8.1-0.1_all.deb
+
+      # 2. Install the packages
+      sudo apt-get install ./tortoisehg*.deb -y
+
+* on 20.04 LTS we can use [experimental packages from Debian](https://packages.debian.org/source/experimental/mercurial):
+
+      # 1. Get the newest Mercurial with Python 3 support
+      cd ~/Downloads
+      wget ftp://173.44.32.10/debian/pool/main/m/mercurial/mercurial-common_5.3.2-1+exp1_all.deb
+      wget ftp://173.44.32.10/debian/pool/main/m/mercurial/mercurial_5.3.2-1+exp1_amd64.deb
+
+      # 2. Install Mercurial packages
+      sudo apt-get install ./mercurial*.deb -y
+
+      # 3. Get dependencies for TortoiseHg
+      sudo apt install python3-all-dev python3-pyqt5 python3-pyqt5.qsci -y
+
+      # 4. Get sources of TortoiseHg
+      hg clone https://bitbucket.org/tortoisehg/thg
+      cd thg
+      hg checkout 5.3.2
+
+      # 5. Compile TortoiseHg using Python 3
+      sudo apt-get install python-is-python3
+      make local
+      sudo python3 setup.py install
+
+      # 6. Install TortoiseHg extension for Caja
+      mkdir -p ~/.local/share/caja-python/extensions
+      cp /usr/local/share/nautilus-python/extensions/nautilus-thg.py ~/.local/share/caja-python/extensions/caja-thg.py
 
 After installation restart Caja with `caja -q && caja`.
 
@@ -295,7 +487,7 @@ Installation:
 
 * for 16.04 LTS, 18.04 LTS and 19.04 install RabbitVCS with method similar to [this AskUbuntu Q&A](https://askubuntu.com/a/1149104/66509):
 
-      sudo apt install rabbitvcs-cli python-caja
+      sudo apt install rabbitvcs-cli python-caja python-tk git mercurial subversion
 
       mkdir -p ~/.local/share/caja-python/extensions
       cd ~/.local/share/caja-python/extensions
@@ -305,7 +497,7 @@ Installation:
 
 * for 19.10 use:
 
-      sudo apt install rabbitvcs-cli python-caja python-tk
+      sudo apt install rabbitvcs-cli python-caja python-tk git mercurial subversion
 
       mkdir -p ~/.local/share/caja-python/extensions
       cd ~/.local/share/caja-python/extensions
@@ -313,16 +505,38 @@ Installation:
       caja -q
       caja
 
+* for 20.04 LTS use:
+
+      sudo apt install rabbitvcs-cli python3-caja python3-tk git mercurial subversion
+
+      mkdir -p ~/.local/share/caja-python/extensions
+      cd ~/.local/share/caja-python/extensions
+      wget https://raw.githubusercontent.com/rabbitvcs/rabbitvcs/v0.18/clients/caja/RabbitVCS.py
+      caja -q
+      caja
+
 Steps to test:
 
 1. Open Caja
-1. Navigate to any folder
-1. Make right mouse click on the folder - it should show *RabbitVCS SVN*, *RabbitVCS Git*, *RabbitVCS Hg* menus with rabbit icon.
-1. Click on the *RabbitVCS Git* → *Initialize Repository*. This will open Initialize Repository window. Close it by pressing OK and press `<F5>` in the Caja window.
+1. Do one of the following:
+
+   * Prepare folders which are controlled by version control systems:
+
+         mkdir /tmp/vcs
+         git init /tmp/vcs/git
+         hg init /tmp/vcs/hg
+         svnadmin create /tmp/vcs/svn
+         touch /tmp/vcs/{git,hg,svn}/empty
+
+     and navigate to the `/tmp/vcs` folder using Caja. Make right mouse click on each folded and select *Commit*.
+
+   * Make right mouse click on some temporary folder - it should show *RabbitVCS SVN*, *RabbitVCS Git*, *RabbitVCS Hg* menus with rabbit icon.
+
+1. Click on the *RabbitVCS Git* → *Initialize Repository*. This will open Initialize Repository window. Close it by pressing OK and press `<F5>` in the Caja window. Repeat the method for SVN and Hg.
 
 Expected results:
 
-* RabbitVCS Git repository is created, the freshly created repository has green checkmark icon/emblem shown on top of it.
+* RabbitVCS repositories are created, freshly created repositories have green checkmark (or question mark) icon/emblem shown on top of it.
 
 ## Check error output on Caja restart
 
@@ -371,7 +585,68 @@ running caja_self_check_file_operations
 running caja_self_check_directory
 running caja_self_check_file
 running caja_self_check_icon_container
-
 ```
 
 and zero exit-code (check it with `echo $?`).
+
+## Desktop
+
+### Launch of symlink'ed application
+
+Steps to test:
+
+1. Open MATE Terminal and create symbolic link on Desktop to some application with `ln -s /usr/bin/xclock ~/Desktop/xclock`
+1. Click on just created `xclock` symlink
+
+Expected results:
+
+* the `xclock` application is launched
+
+### Launch of *.desktop*-file copied from `/usr/share/applications`
+
+Steps to test:
+
+1. Copy some *.desktop*-file from `/usr/share/applications` to `~/Desktop` by using Caja or by using MATE Terminal (for example `cp /usr/share/applications/firefox.desktop ~/Desktop`)
+1. Clink on just copied *desktop* file
+1. In the opened window click on the *Mark as Trusted* button
+
+Expected results:
+
+* the file is *.desktop*-file is copied, the application is launched by clicking on this file.
+
+### Using symbolic links to file or folder on Desktop
+
+Steps to test:
+
+1. Open Caja
+1. Select needed file or folder and then click *Make Link* for it
+1. Move just created link to the `~/Desktop` folder
+1. Double click on just moved link on the Desktop
+
+Expected results:
+
+* user is able to create symbolic link to file or folder and place it on the `~/Desktop`, clicking on this link opens the corresponding file or folder.
+
+### Drag and drop objects from Caja to Desktop
+
+Steps to test:
+
+1. Open Caja
+1. Select some files or folders, drag and drop them to the Desktop area
+
+Expected results:
+
+* user is able to drag and drop files or folders from file manager to Destkop area.
+
+### Copy, move and paste objects from/to Desktop
+
+Steps to test:
+
+1. Open Caja
+1. Select some files or folders, copy or move them from or to Desktop area
+
+Expected results:
+
+* user is able to copy or move files or folders from or to Desktop area.
+
+
